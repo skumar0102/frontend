@@ -23,7 +23,7 @@ export const ThemesColors : themecolors = {
   [Theme.Dark]:{
     Theme:'dark',
     Nav:'#1F1B24',
-    Bg:'#121212',
+    Bg:'orange',
     textColor:'#fff'
 
   }

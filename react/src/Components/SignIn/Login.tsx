@@ -76,6 +76,7 @@ function Login() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -89,6 +90,7 @@ function Login() {
             <Grid container spacing={2}>
               <Grid item xs={12} >
               <TextField
+              sx={{color:'white'}}
               margin="normal"
               required
               fullWidth
