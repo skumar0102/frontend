@@ -1,10 +1,14 @@
 import express from 'express';
-import {paymentLink} from '../Controllers/RazorpayController.js';
+import {createorder,fetchorder,orderById,updateOrder,fetchPayment} from '../Controllers/RazorpayController.js';
 
 
 const router = express.Router();
 
-router.post("/",paymentLink);
+router.post("/",createorder);
+router.get("/orders",fetchorder);
+router.get("/order/:id",orderById);
+router.post("/order/:id",updateOrder);
+router.get("/",fetchPayment);
 
 
 

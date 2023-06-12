@@ -65,7 +65,11 @@ function SignUp() {
           return(
             <>
                    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{
+        boxShadow:3,
+        borderRadius:2,
+        alignItems:'center',
+      }}>
         <CssBaseline />
         <Box
           sx={{
@@ -163,12 +167,12 @@ function SignUp() {
                   ) : null
                 }
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"

@@ -28,6 +28,8 @@ import { ThemeContext } from '../../Context/Theme';
 import { Theme,ThemesColors } from '../../Context/Enums';
 import { FormGroup, FormControlLabel } from '@mui/material';
 import Switch from '@mui/material/Switch';
+import Swal from 'sweetalert2';
+
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -163,6 +165,18 @@ function Dashboard() {
   http.get("/auth/logout")
   .then((res)=>{
     localStorage.removeItem('token');
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: 'Logout successfully Done !',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)}
+                  })
     navigator("/");
    
   }).catch((err)=>{
@@ -187,7 +201,7 @@ function Dashboard() {
     <div>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open} sx={{color: theme === Theme.Light ? ThemesColors.light.textColor :ThemesColors.dark.textColor , backgroundColor: theme === Theme.Light ? ThemesColors.light.Nav :ThemesColors.dark.Nav}}>
+        <AppBar position="absolute" open={open} sx={{zIndex:1 ,color: theme === Theme.Light ? ThemesColors.light.textColor :ThemesColors.dark.textColor , backgroundColor: theme === Theme.Light ? ThemesColors.light.Nav :ThemesColors.dark.Nav}}>
           <Toolbar
             sx={{
               pr: '24px'

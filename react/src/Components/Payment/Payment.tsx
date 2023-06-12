@@ -1,8 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+import useRazorpay from 'react-razorpay';
+
 
 function Payment() {
-  const  loadScript = (src) => {
+    const Razorpay = useRazorpay();
+
+  const  loadScript = (src:any) => {
     return new Promise((resolve) => {
         const script = document.createElement("script");
         script.src = src;
@@ -29,27 +33,25 @@ async function displayRazorpay() {
 
 
 
-   
-
     const options = {
         "key": "rzp_test_3m3hH2PZBRuAYT", // Enter the Key ID generated from the Dashboard
         "amount": "50000",
         "name": "Soumya Corp.",
         "currency":"INR",
-        "order_id":"order_M0tYQ92TEHYASe",
+        "order_id":"order_M0vuzO3jN9b1F9",
         
         "description": "Test Transaction",
         // image: { logo },
-        "handler": async function (response) {
+        "handler": async function (response:any) {
             const data = {
                 razorpayPaymentId: response.razorpay_payment_id,
                 razorpayOrderId: response.razorpay_order_id,
                 razorpaySignature: response.razorpay_signature,
             };
 
-            const result = await axios.post("http://localhost:1072/payment", data);
+            // const result = await axios.post("http://localhost:1072/payment", data);
 
-            alert(result.data.msg);
+            // alert(result.data.msg);
         },
         prefill: {
             name: "Soumya Dey",
@@ -64,7 +66,7 @@ async function displayRazorpay() {
         },
     };
 
-    const paymentObject = new window.Razorpay(options);
+    const paymentObject = new Razorpay(options);
     paymentObject.open();
 }
 
@@ -72,7 +74,7 @@ async function displayRazorpay() {
   return (
     <div>
        <button className="App-link" onClick={displayRazorpay}>
-                    Pay ₹500
+                    Pay Payment
                 </button>
     </div>
   )

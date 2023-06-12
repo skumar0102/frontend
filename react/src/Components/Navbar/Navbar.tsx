@@ -13,13 +13,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
 import Switch from '@mui/material/Switch';
+import Link from '@mui/material/Link';
 import { FormGroup, FormControlLabel } from '@mui/material';
 import { styled } from '@mui/material/styles'
 import { ThemeContext } from '../../Context/Theme';
 import { Theme,ThemesColors } from '../../Context/Enums';
-
 
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -76,7 +75,6 @@ const navItems = ['Home', 'About', 'Contact', 'SignUp', 'SignIn'];
 function Navbar() {
   const { theme, setTheme } = useContext(ThemeContext);
   const [mobileOpen, setMobileOpen] = useState(false);
-
   const handleToggle = () => {
     if (theme === Theme.Light) {
       setTheme(Theme.Dark);
@@ -88,7 +86,6 @@ function Navbar() {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-  const navigator = useNavigate();
 
 
   const drawer = (
@@ -98,13 +95,33 @@ function Navbar() {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+       
+          <ListItem  disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+              <ListItemText primary={"Home"} />
             </ListItemButton>
           </ListItem>
-        ))}
+          <ListItem  disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={"About"} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem  disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={"Contact"} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem  disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={"SignUp"} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem  disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={"SingIn"} />
+            </ListItemButton>
+          </ListItem>
+        
       </List>
     </Box>
   );
@@ -114,7 +131,7 @@ function Navbar() {
     <>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar component="nav" sx={{ color: theme === Theme.Light ? ThemesColors.light.textColor :ThemesColors.dark.textColor , backgroundColor: theme === Theme.Light ? ThemesColors.light.Nav :ThemesColors.dark.Nav }}>
+        <AppBar component="nav" sx={{zIndex:1, color: theme === Theme.Light ? ThemesColors.light.textColor :ThemesColors.dark.textColor , backgroundColor: theme === Theme.Light ? ThemesColors.light.Nav :ThemesColors.dark.Nav }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -134,11 +151,15 @@ function Navbar() {
               IDS INFOTECH LTD.
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              {navItems.map((item) => (
-                <Button key={item} sx={{ color: '#fff' }}>
-                  {item}
-                </Button>
-              ))}
+              
+            
+                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>Home</Link></Button>
+                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>About</Link></Button>
+                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>Contact</Link></Button>
+                <Button  ><Link href="/signup" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>SignUp</Link></Button>
+                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>SignIn</Link></Button>
+        
+             
 
             </Box>
             <FormGroup>

@@ -19,6 +19,7 @@ import {SigninValidation} from './SigninValidation.js';
 import {useNavigate} from 'react-router-dom';
 import { ThemeContext } from '../../Context/Theme'; 
 import { Theme,ThemesColors } from '../../Context/Enums';
+import Swal from 'sweetalert2';
 
 function Copyright(props: any) {
     return (
@@ -53,6 +54,18 @@ function Login() {
           .then((res)=>{
             if(res.status === 200){
               localStorage.setItem('token',res.data.token);
+              Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Signed in successfully',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)}
+                            })
               navigator("/dashboard");
             }
           })
