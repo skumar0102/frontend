@@ -38,7 +38,7 @@ async function displayRazorpay() {
         "amount": "50000",
         "name": "Soumya Corp.",
         "currency":"INR",
-        "order_id":"order_M0vuzO3jN9b1F9",
+        "order_id":"order_M1NQENLoPaAC7c",
         
         "description": "Test Transaction",
         // image: { logo },

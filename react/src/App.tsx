@@ -5,6 +5,7 @@ import {Route,Routes} from 'react-router-dom';
 import SignUp from './Components/SignUp/SignUp';
 import Login from './Components/SignIn/Login';
 import Payment from './Components/Payment/Payment';
+import ViewOrders from './Components/Dashboard/ViewOrders';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard/>} />
         <Route path='/signup' element={<SignUp/>} />
         <Route path='/payment' element={<Payment/>} />
+        <Route path='/viewOrders' element={<ViewOrders/>} />
       </Routes>
     </div>
   );
