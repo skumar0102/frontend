@@ -81,6 +81,7 @@ function Login() {
         boxShadow:3,
         borderRadius:2,
         alignItems:'center',
+        backgroundColor: theme === Theme.Light ? ThemesColors.light.BgLogin :ThemesColors.dark.BgLogin
       }}>
         <CssBaseline />
         <Box

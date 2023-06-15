@@ -1,17 +1,13 @@
 import Razorpay from "razorpay";
-import dotenv from "dotenv";
 import Order from "../Models/Order.js";
 
-async function createorder(req, res) {
-  try {
-  
-    var instance = new Razorpay({
-      key_id: process.env.RAZORPAY_ID_KEY,
-      key_secret: process.env.RAZORPAY_SECRET_KEY,
-    });
-    
-    
+const instance = new Razorpay({
+  key_id: process.env.RAZORPAY_ID_KEY,
+  key_secret: process.env.RAZORPAY_SECRET_KEY,
+});
 
+async function createorder(req, res) {
+  try {  
     //MongoDb Database
 
     let result = await Order.create(req.body);
@@ -44,11 +40,6 @@ async function createorder(req, res) {
 
 async function fetchorder(req, res) {
   try {
-    var instance = new Razorpay({
-      key_id: process.env.RAZORPAY_ID_KEY,
-      key_secret: process.env.RAZORPAY_SECRET_KEY,
-    });
-
     let result = await instance.orders.all({ count: 100 });
     res.status(200).send({ result });
   } catch (error) {
@@ -58,10 +49,6 @@ async function fetchorder(req, res) {
 
 async function orderById(req, res) {
   try {
-    var instance = new Razorpay({
-      key_id: process.env.RAZORPAY_ID_KEY,
-      key_secret: process.env.RAZORPAY_SECRET_KEY,
-    });
     let result = await instance.orders.fetch(req.body.orderId);
     res.status(200).send({ result });
   } catch (error) {
@@ -71,11 +58,6 @@ async function orderById(req, res) {
 
 async function updateOrder(req, res) {
   try {
-    var instance = new Razorpay({
-      key_id: process.env.RAZORPAY_ID_KEY,
-      key_secret: process.env.RAZORPAY_SECRET_KEY,
-    });
-
     let result = await instance.orders.edit(req.body.orderId);
     res.status(200).send({ result });
   } catch (error) {
@@ -85,11 +67,6 @@ async function updateOrder(req, res) {
 
 async function fetchPayment(req, res) {
   try {
-    var instance = new Razorpay({
-      key_id: process.env.RAZORPAY_ID_KEY,
-      key_secret: process.env.RAZORPAY_SECRET_KEY,
-    });
-
     let result = await instance.orders.fetchPayments(req.body.orderId);
     res.status(200).send({ result });
   } catch (error) {
@@ -97,4 +74,13 @@ async function fetchPayment(req, res) {
   }
 }
 
-export { createorder, fetchorder, orderById, updateOrder, fetchPayment };
+async function fetchAllPayments(req,res){
+  try {
+    let result = await instance.payments.all({count:100});
+    res.status(200).send({ result });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
+
+export { createorder, fetchorder, orderById, updateOrder, fetchPayment,fetchAllPayments };

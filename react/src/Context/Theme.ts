@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react';
-import { Theme } from './Enums';
+import React, { createContext } from 'react';
+import { Theme } from './Enums'
 
 export const ThemeContext = createContext<{
     theme: Theme;
@@ -8,8 +8,3 @@ export const ThemeContext = createContext<{
     theme: Theme.Light,
     setTheme: () => { },
 });
-
-
-
-
-

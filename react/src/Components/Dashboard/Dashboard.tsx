@@ -205,7 +205,7 @@ function Dashboard() {
           position="absolute"
           open={open}
           sx={{
-            zIndex: 1,
+            // zIndex: 1,
             color:
               theme === Theme.Light
                 ? ThemesColors.light.textColor
@@ -265,7 +265,7 @@ function Dashboard() {
             </FormGroup>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} >
           <Toolbar
             sx={{
               display: "flex",
@@ -274,14 +274,15 @@ function Dashboard() {
               px: [1],
             }}
           >
-            <h3>IDS INFOTECH LTD.</h3>
+            {/* <h3>IDS INFOTECH LTD.</h3> */}
+            {/* <h3>Admin MENU</h3> */}
 
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <Divider />
-          <List component="nav">
+          <Divider  />
+          <List component="nav" >
             {mainListItems}
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}

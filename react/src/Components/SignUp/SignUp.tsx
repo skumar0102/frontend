@@ -18,6 +18,7 @@ import { SignupValidation } from './SignupValidation.js';
 import { http } from '../../Config/axiosConfig.js';
 import { ThemeContext } from '../../Context/Theme';
 import { Theme,ThemesColors } from '../../Context/Enums';
+import Swal from 'sweetalert2';
 
 function Copyright(props: any) {
   return (
@@ -29,10 +30,7 @@ function Copyright(props: any) {
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
-    </Typography>
-
-
-    
+    </Typography>    
     </>
 
   );
@@ -43,9 +41,8 @@ const defaultTheme = createTheme();
 
 function SignUp() {
   const { theme, setTheme } = useContext(ThemeContext);
-  
   return (
-    <div>
+    <div style={{backgroundColor: theme === Theme.Light ? ThemesColors.light.Bg :ThemesColors.dark.Bg,height:'100vh'}}>
     <Navbar/>
     <Formik validationSchema={SignupValidation}
     initialValues={{first_name:"",last_name:"",email:"",password:""}}
@@ -54,10 +51,25 @@ function SignUp() {
           http.post("/register",values)
           .then((res)=>{
             if (res.status === 201) {
-              console.log("Registration")
+              Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Registration in successfully Done !',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)}
+                            })
+
+                            
             }
           })
     }
+
+    
   
   }
     >
@@ -69,6 +81,7 @@ function SignUp() {
         boxShadow:3,
         borderRadius:2,
         alignItems:'center',
+        backgroundColor: theme === Theme.Light ? ThemesColors.light.BgLogin :ThemesColors.dark.BgLogin
       }}>
         <CssBaseline />
         <Box

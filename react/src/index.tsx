@@ -5,15 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeContext } from './Context/Theme';
-import { Theme } from './Context/Enums';
+import { LangContext } from './Context/Language';
+import { Lang, Theme } from './Context/Enums';
 
 const RootComponent = () => {
   const [theme, setTheme] = useState(Theme.Light);
+  const [language, setLanguage] = useState(Lang.Eng)
   return (
     <React.StrictMode>
       <BrowserRouter>
         <ThemeContext.Provider value={{ theme, setTheme }}>
-          <App />
+          <LangContext.Provider value={{ language, setLanguage }}>
+            <App />
+          </LangContext.Provider>
         </ThemeContext.Provider>
       </BrowserRouter>
     </React.StrictMode>
