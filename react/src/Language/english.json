@@ -1,5 +1,10 @@
 {
-    "/":{
-        "Navbar":["Home","About","Contact","SingIn","SinOut"]
+    "Navbar":["Home","About","Contact","SignUp","SignIn"],
+    "main":{
+        "Navbar":["Home","About","Contact","SingUn","SingIn"],
+        "Signin":["SignIn"]
+    },
+    "signup":{
+
     }
 }

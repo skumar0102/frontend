@@ -18,7 +18,8 @@ import {Formik} from 'formik'
 import {SigninValidation} from './SigninValidation.js';
 import {useNavigate} from 'react-router-dom';
 import { ThemeContext } from '../../Context/Theme'; 
-import { Theme,ThemesColors } from '../../Context/Enums';
+import { Theme,ThemesColors,Lang,LangSelect } from '../../Context/Enums';
+import { LangContext } from '../../Context/Language';
 import Swal from 'sweetalert2';
 
 function Copyright(props: any) {
@@ -39,7 +40,8 @@ function Copyright(props: any) {
 
 function Login() {
   const { theme, setTheme } = useContext(ThemeContext);
-
+  const {lang, setLanguage, data} = useContext(LangContext);
+  let languageBasedContent: any = data
   const navigator = useNavigate();
 
   return (
@@ -97,7 +99,7 @@ function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+           {languageBasedContent.main.Signin[0]}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1,color: theme === Theme.Light ? ThemesColors.light.textColor :ThemesColors.dark.textColor,
           }}>

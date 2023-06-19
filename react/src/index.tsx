@@ -6,19 +6,26 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeContext } from './Context/Theme';
 import { LangContext } from './Context/Language';
-import { Lang, Theme } from './Context/Enums';
+import { Lang, LangSelect, Theme } from './Context/Enums';
 
 const RootComponent = () => {
+  const [language, setLanguage] = useState(Lang.Eng);
   const [theme, setTheme] = useState(Theme.Light);
-  const [language, setLanguage] = useState(Lang.Eng)
+  let data: any
+  //implement switch case here instead of if condition as per language and inehrit the object value in data
+  if (language === Lang.Eng) {
+    data = LangSelect.English.data
+  }else if(language === Lang.Hin){
+    data = LangSelect.Hindi.data
+  }
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <ThemeContext.Provider value={{ theme, setTheme }}>
-          <LangContext.Provider value={{ language, setLanguage }}>
+        <LangContext.Provider value={{ lang: language, setLanguage, data }}>
+          <ThemeContext.Provider value={{ theme, setTheme }}>
             <App />
-          </LangContext.Provider>
-        </ThemeContext.Provider>
+          </ThemeContext.Provider>
+        </LangContext.Provider>
       </BrowserRouter>
     </React.StrictMode>
   );

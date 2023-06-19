@@ -18,7 +18,8 @@ import Link from '@mui/material/Link';
 import { FormGroup, FormControlLabel } from '@mui/material';
 import { styled } from '@mui/material/styles'
 import { ThemeContext } from '../../Context/Theme';
-import { Theme,ThemesColors } from '../../Context/Enums';
+import { Lang, LangSelect, Theme,ThemesColors } from '../../Context/Enums';
+import { LangContext } from '../../Context/Language';
 
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -69,12 +70,20 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact', 'SignUp', 'SignIn'];
+// const navItems = ['Home', 'About', 'Contact', 'SignUp', 'SignIn'];
 
 
 function Navbar() {
   const { theme, setTheme } = useContext(ThemeContext);
+  const {lang, setLanguage, data} = useContext(LangContext);
+  let languageBasedContent: any = data
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  console.log(lang);
+  const handleLang = () =>{
+      setLanguage(Lang.Hin);   
+  }
+
   const handleToggle = () => {
     if (theme === Theme.Light) {
       setTheme(Theme.Dark);
@@ -153,11 +162,11 @@ function Navbar() {
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               
             
-                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>Home</Link></Button>
-                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>About</Link></Button>
-                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>Contact</Link></Button>
-                <Button  ><Link href="/signup" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>SignUp</Link></Button>
-                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>SignIn</Link></Button>
+                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>{languageBasedContent.main.Navbar[0]}</Link></Button>
+                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>{languageBasedContent.main.Navbar[1]}</Link></Button>
+                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>{languageBasedContent.main.Navbar[2]}</Link></Button>
+                <Button  ><Link href="/signup" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>{languageBasedContent.main.Navbar[3]}</Link></Button>
+                <Button  ><Link href="/" variant="body2" sx={{textDecoration:'none',color: '#fff'}}>{languageBasedContent.main.Navbar[4]}</Link></Button>
         
              
 
@@ -168,6 +177,7 @@ function Navbar() {
                 label=""
               />
             </FormGroup>
+            <Button onClick={handleLang}>Hin</Button>
           </Toolbar>
         </AppBar>
         <Box component="nav">

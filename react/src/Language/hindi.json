@@ -1,0 +1,10 @@
+{
+    "Navbar":["Home","About","Contact","SignUn","SignIn"],
+    "main":{
+        "Navbar":["घर","के बारे में","संपर्क","साइन अप करें","में गाना"],
+        "Signin":["दाखिल करना"]
+    },
+    "signup":{
+
+    }
+}

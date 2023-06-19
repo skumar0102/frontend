@@ -1,4 +1,5 @@
-import english from '../Language/english.json'
+import english from '../Language/english.json';
+import hindi from '../Language/hindi.json';
 export enum Theme {
   Light = 'light',
   Dark = 'dark',
@@ -6,14 +7,7 @@ export enum Theme {
 
 export enum Lang {
   Eng = 'English',
-  // Hin = 'Hindi'
-}
-
-type langSelect = {
-  [key in Lang]: {
-    Language: Object;
-    data: Object;
-  }
+  Hin = 'Hindi'
 }
 
 type themecolors = {
@@ -24,6 +18,13 @@ type themecolors = {
     textColor: string;
     BgLogin: string;
     BgData: string;
+  }
+}
+
+type langSelect = {
+  [key in Lang]: {
+    Language: string;
+    data: Object;
   }
 }
 
@@ -45,13 +46,14 @@ export const ThemesColors: themecolors = {
     BgData: 'lightgrey'
   }
 }
+
 export const LangSelect: langSelect = {
   [Lang.Eng]: {
     Language: 'english',
     data: english
   },
-  // [Lang.Hin]: {
-  //   Language: 'light'
-  // }
+  [Lang.Hin]: {
+    Language: 'Hindi',
+    data:hindi
+  }
 }
-
