@@ -30,6 +30,7 @@ import { FormGroup, FormControlLabel } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import Swal from "sweetalert2";
 import ViewOrders from "./ViewOrders";
+import logo from '../../img/logo.gif';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -271,9 +272,10 @@ function Dashboard() {
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              px: [1],
+              px: [1]
             }}
           >
+            <img src={logo} alt="" height="80px" width="150px" style={{padding:10}}/>
             {/* <h3>IDS INFOTECH LTD.</h3> */}
             {/* <h3>Admin MENU</h3> */}
 

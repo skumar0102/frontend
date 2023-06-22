@@ -1,7 +1,7 @@
 {
     "Navbar":["Home","About","Contact","SignUp","SignIn"],
     "main":{
-        "Navbar":["Home","About","Contact","SingUn","SingIn"],
+        "Navbar":["Home","About","Contact","SingUp","SingIn"],
         "Signin":["SignIn"]
     },
     "signup":{

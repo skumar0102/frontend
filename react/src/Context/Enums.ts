@@ -31,7 +31,8 @@ type langSelect = {
 export const ThemesColors: themecolors = {
   [Theme.Light]: {
     Theme: 'light',
-    Nav: '#9c27b0',
+    // Nav: '#9c27b0',
+    Nav: '#ff4b2b',
     Bg: '#fff',
     textColor: '#fff',
     BgLogin: '#fff',
