@@ -70,7 +70,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const drawerWidth = 240;
-// const navItems = ['Home', 'About', 'Contact', 'SignUp', 'SignIn'];
 
 function Navbar() {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -197,7 +196,7 @@ function Navbar() {
               </Button>
               <Button>
                 <Link
-                  href="/signup"
+                  href="/"
                   variant="body2"
                   sx={{ textDecoration: "none", color: "#fff" }}
                 >

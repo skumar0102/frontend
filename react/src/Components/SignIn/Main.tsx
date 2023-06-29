@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as Components from './Style.js';
-import Navbar from '../Navbar/Navbar.js';
+import Navbar from '../Navbar/Navbar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import { Formik } from 'formik';
@@ -32,11 +32,12 @@ function New() {
                                     localStorage.setItem('token', res.data.token);
                                     Swal.fire({
                                         toast: true,
-                                        position: 'top-end',
+                                        position: 'bottom-end',
                                         icon: 'success',
                                         title: 'Signed in successfully',
                                         showConfirmButton: false,
                                         timer: 3000,
+                                        // background:'#4aa3d1',
                                         timerProgressBar: true,
                                         didOpen: (toast) => {
                                             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -45,6 +46,13 @@ function New() {
                                     })
 
                                     navigator("/dashboard");
+                                }else if(res.status === 401 || res.status === 400 || res.status === 404){
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Something went wrong!',
+                                        footer: '<a href="">Why do I have this issue?</a>'
+                                      })
                                 }
                             })
                         : http.post("/register", values)
@@ -52,8 +60,9 @@ function New() {
                                 if (res.status === 201) {
                                     Swal.fire({
                                         toast: true,
-                                        position: 'top-end',
+                                        position: 'bottom-end',
                                         icon: 'success',
+                                        background:'#4aa3d1',
                                         title: 'Registration in successfully Done !',
                                         showConfirmButton: false,
                                         timer: 3000,
@@ -82,7 +91,7 @@ function New() {
 
                 </Formik>
             </Components.mydiv>
-            <Footer />
+            {/* <Footer />s */}
         </>
     )
 }

@@ -1,36 +1,168 @@
-import React,{useState,useEffect,useContext} from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import React, { useState, useEffect, useContext } from 'react';
 import { http } from '../../Config/axiosConfig.js';
 import { ThemeContext } from '../../Context/Theme';
-import { Theme,ThemesColors } from '../../Context/Enums';
+import { Theme, ThemesColors } from '../../Context/Enums.js';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Pagination from '@mui/material/Pagination';
+import Button from '@mui/material/Button';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import useRazorpay from "react-razorpay";
 
-const columns = [
-    { field: 'id', headerName: 'ID', width: 200 },
-    { field: 'receipt', headerName: 'Receipt', width: 100 },
-    { field: 'entity', headerName: 'Entity', width: 100 },
-    { field: 'amount', headerName: 'Amount', width: 100 },
-    { field: 'amount_paid', headerName: 'Amount Paid', width: 100 },
-    { field: 'attempts', headerName: 'Attempts', width: 100 },
-    { field: 'currency', headerName: 'Currency', width: 100 },
-    { field: 'status', headerName: 'Status', width: 100,color:'red' },
-    { field: 'created_at', headerName: 'Create At', width: 150 },
-    // { field: 'offer_id', headerName: 'Offer Id', width: 100 },
-  ]
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+  textAlign: 'center'
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 function ViewOrders() {
-    const [Orders, setOrders] = useState([]); 
+  const [Orders, setOrders] = useState<any[]>([]);
+  console.log(Orders);
+  const itemsPerPage = 8;
+  const [page, setPage] = useState<any>(1);
+  const [noPages, setNoPages] = useState<any>(0);
   const { theme, setTheme } = useContext(ThemeContext);
-        useEffect(() => {
-       http.get("/payment/orders").then((res)=>{
-        setOrders(res.data.result.items);
-       })
-      },[])
-      
+  const handleChange = (key: any, value: any) => {
+    setPage(value);
+  }
+
+  // Razorpay code start
+  const Razorpay = useRazorpay();
+  const loadScript = (src: any) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  async function displayRazorpay(Orders:any,key:any) {
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+
+    if (!res) {
+      alert("Razorpay SDK failed to load. Are you online?");
+      return;
+    }
+
+    const options: any = {
+      key: "rzp_test_3m3hH2PZBRuAYT", // Enter the Key ID generated from the Dashboard
+      amount: "50000",
+      // name: ,
+      currency: "INR",
+      order_id: Orders[key].id,
+      // description: Desc,
+      // image: { logo },
+      handler: async function (response: any) {
+        const data = {
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
+          razorpaySignature: response.razorpay_signature,
+        };
+      },
+      prefill: {
+        name: "Sushil Kumar",
+        email: "Sk@gmail.com",
+        contact: "7859632659",
+      },
+      notes: {
+        address: "Soumya Dey Corporate Office",
+      },
+      theme: {
+        color: "#61dafb",
+      },
+    };
+
+    const paymentObject = new Razorpay(options);
+    paymentObject.open();
+  }
+  // Razorpay code end
+
+
+  useEffect(() => {
+    http.get("/payment/orders").then((res) => {
+      setOrders(res.data.result.items);
+      setNoPages(Math.ceil(res.data.result.items.length / itemsPerPage));
+    })
+  }, [])
+
   return (
-    <div style={{ height: 700,width:"100%"}}>
-    <DataGrid checkboxSelection sx={{backgroundColor: theme === Theme.Light ? ThemesColors.light.BgData : ThemesColors.dark.BgData}} rows={Orders} columns={columns}  autoPageSize slots={{ toolbar: GridToolbar }} />
-  </div>
+    <>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>ORDER ID</StyledTableCell>
+              <StyledTableCell align="right">AMOUNT</StyledTableCell>
+              <StyledTableCell align="right">AMOUNT DUE</StyledTableCell>
+              <StyledTableCell align="right">AMOUNT PAID</StyledTableCell>
+              <StyledTableCell align="right">ATTEMPTS</StyledTableCell>
+              <StyledTableCell align="right">CURRENCY</StyledTableCell>
+              <StyledTableCell align="right">RECEIPT</StyledTableCell>
+              <StyledTableCell align="right">STATUS</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {Object.keys(Orders).slice((page - 1) * itemsPerPage, page * itemsPerPage).map((key: any) => (
+              <StyledTableRow key={key}>
+                <StyledTableCell component="th">{Orders[key].id}</StyledTableCell>
+                <StyledTableCell align="right">{Orders[key].amount}</StyledTableCell>
+                <StyledTableCell align="right">{Orders[key].amount_due}</StyledTableCell>
+                <StyledTableCell align="right">{Orders[key].amount_paid}</StyledTableCell>
+                <StyledTableCell align="right">{Orders[key].attempts}</StyledTableCell>
+                <StyledTableCell align="right">{Orders[key].currency}</StyledTableCell>
+                <StyledTableCell align="right">{Orders[key].receipt}</StyledTableCell>
+                <StyledTableCell align="right">
+                  <Button disableRipple  onClick={()=> displayRazorpay(Orders,key)} variant='outlined' startIcon={Orders[key].status == "paid" ? <CurrencyRupeeIcon /> : <AutorenewIcon />} color={Orders[key].status == "paid" ? 'success' : 'error'}>
+
+                    {Orders[key].status}
+                  </Button>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+            <Pagination
+              count={noPages}
+              page={page}
+              defaultPage={1}
+              onChange={handleChange}
+            />
+          </TableBody>
+        </Table>
+
+      </TableContainer>
+
+    </>
   )
 }
+
 
 export default ViewOrders

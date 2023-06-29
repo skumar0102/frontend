@@ -27,7 +27,7 @@ function SignIn({onSubmit, image, signIn, handleBlur, errors, handleChange, valu
                 <Anchor href='#'>Forgot your password?</Anchor>
                 <Button type="submit" >Sigin In</Button>
                 <br />
-                <Button type="button" onClick={() => resetForm()} >Reset</Button>
+                <Button type="reset" onClick={() => resetForm()} >Reset</Button>
             </Form>
         </SignInContainer>
     )

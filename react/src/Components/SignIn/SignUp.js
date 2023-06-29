@@ -34,7 +34,7 @@ function SignUp({onSubmit, image, signIn, handleBlur, errors, handleChange, valu
                 ) : null}
                 <Button type="submit">Sign Up</Button>
                 <br />
-                <Button type="button" onClick={() => resetForm()} >Reset</Button>
+                <Button type="reset" onClick={() => resetForm()} >Reset</Button>
             </Form>
         </SignUpContainer>
     )

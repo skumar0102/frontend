@@ -17,7 +17,6 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "./listItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
@@ -30,7 +29,22 @@ import { FormGroup, FormControlLabel } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import Swal from "sweetalert2";
 import ViewOrders from "./ViewOrders";
-import logo from '../../img/logo.gif';
+import logo from "../../img/logo.gif";
+import ViewPayments from "./ViewPayments";
+import MakeOrder from "./MakeOrder";
+import MakePayment from "./MakePayment";
+import Cal from "./Cal";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListSubheader from "@mui/material/ListSubheader";
+import GridViewIcon from "@mui/icons-material/GridView";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -88,8 +102,8 @@ function Copyright(props: any) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://ids-technologies.in/">
+        IDS Infotech Ltd.
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -153,12 +167,65 @@ const Drawer = styled(MuiDrawer, {
 function Dashboard() {
   const { theme, setTheme } = useContext(ThemeContext);
   const [open, setOpen] = useState(true);
+  const [dashboard, setDashboard] = useState(true);
+  const [makeOrder, setMakeOrder] = useState(false);
+  const [cal, setCal] = useState(false);
+  const [makePayment, setMakePayment] = useState(false);
+  const [viewOrders, setViewOrders] = useState(false);
+  const [viewPayments, setViewPayments] = useState(false);
+  const navigator = useNavigate();
+
+  const handledashboard = () => {
+    setCal(false);
+    setMakePayment(false);
+    setViewOrders(false);
+    setViewPayments(false);
+    setMakeOrder(false);
+    setDashboard(true);
+  };
+  const handleCal = () => {
+    setCal(true);
+    setMakePayment(false);
+    setViewOrders(false);
+    setViewPayments(false);
+    setMakeOrder(false);
+    setDashboard(false);
+  };
+  const handlemakeOrder = () => {
+    setCal(false);
+    setMakePayment(false);
+    setViewOrders(false);
+    setViewPayments(false);
+    setMakeOrder(true);
+    setDashboard(false);
+  };
+  const handlemakePayment = () => {
+    setCal(false);
+    setMakePayment(true);
+    setViewOrders(false);
+    setViewPayments(false);
+    setMakeOrder(false);
+    setDashboard(false);
+  };
+  const handleviewOrders = () => {
+    setCal(false);
+    setMakePayment(false);
+    setViewOrders(true);
+    setViewPayments(false);
+    setMakeOrder(false);
+    setDashboard(false);
+  };
+  const handleviewPayments = () => {
+    setCal(false);
+    setMakePayment(false);
+    setViewOrders(false);
+    setViewPayments(true);
+    setMakeOrder(false);
+    setDashboard(false);
+  };
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  const navigator = useNavigate();
-
   const handleToggle = () => {
     if (theme === Theme.Light) {
       setTheme(Theme.Dark);
@@ -166,7 +233,6 @@ function Dashboard() {
       setTheme(Theme.Light);
     }
   };
-
   const handleLogout = () => {
     http
       .get("/auth/logout")
@@ -174,11 +240,12 @@ function Dashboard() {
         localStorage.removeItem("token");
         Swal.fire({
           toast: true,
-          position: "top-end",
+          position: "bottom-end",
           icon: "success",
           title: "Logout successfully Done !",
           showConfirmButton: false,
           timer: 3000,
+          // background: "#4aa3d1",
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -266,16 +333,22 @@ function Dashboard() {
             </FormGroup>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open} >
+        <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              px: [1]
+              px: [1],
             }}
           >
-            <img src={logo} alt="" height="80px" width="150px" style={{padding:10}}/>
+            <img
+              src={logo}
+              alt=""
+              height="80px"
+              width="150px"
+              style={{ padding: 10 }}
+            />
             {/* <h3>IDS INFOTECH LTD.</h3> */}
             {/* <h3>Admin MENU</h3> */}
 
@@ -283,11 +356,69 @@ function Dashboard() {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <Divider  />
-          <List component="nav" >
-            {mainListItems}
+          <Divider />
+          <List component="nav">
+            <ListItemButton>
+              <ListItemIcon>
+                <GridViewIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" onClick={handledashboard} />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <ShoppingBagIcon />
+              </ListItemIcon>
+              <ListItemText primary="Make Order" onClick={handlemakeOrder} />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <ShoppingBagIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Make Payment"
+                onClick={handlemakePayment}
+              />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <RemoveRedEyeIcon />
+              </ListItemIcon>
+              <ListItemText primary="View Orders" onClick={handleviewOrders} />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <RemoveRedEyeIcon />
+              </ListItemIcon>
+              <ListItemText primary="View Calander" onClick={handleCal} />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <RemoveRedEyeIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="View Payments"
+                onClick={handleviewPayments}
+              />
+            </ListItemButton>
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            <ListItemButton>
+              <ListItemIcon>
+                <AccountBalanceIcon />
+              </ListItemIcon>
+              <ListItemText primary="Account" />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Setting" />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary="Sign Out" onClick={handleLogout}/>
+            </ListItemButton>
           </List>
         </Drawer>
         <Box
@@ -305,41 +436,32 @@ function Dashboard() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
+              {dashboard === true ? 
+              <>
+              <Chart/>
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper sx={{p:2,display:'flex',flexDirection:'column',height:250}}>
+                  <Chart/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={8} lg={12}>
+                <Paper sx={{p:2,display:'flex',flexDirection:'column',height:310}}>
+                  <Orders/>
+                </Paper>
+              </Grid>
               {/* <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Chart />
+                <Paper sx={{p:2,display:'flex',flexDirection:'column',height:240}}>
+                  <Deposits/>
                 </Paper>
               </Grid> */}
-              {/* Recent Deposits */}
-              {/* <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid> */}
-              {/* Recent Orders */}
-              {/* <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
-                </Paper>
-              </Grid> */}
-              {/* Recent Orders */}
+              </>
+              :null}
               <Grid item xs={12}>
-                  <ViewOrders />
+                {viewPayments === true ? <ViewPayments /> : null}
+                {viewOrders === true ? <ViewOrders /> : null}
+                {cal === true ? <Cal /> : null}
+                {makeOrder === true ? <MakeOrder /> : null}
+                {makePayment === true ? <MakePayment /> : null}
               </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
