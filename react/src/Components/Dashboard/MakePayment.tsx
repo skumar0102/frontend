@@ -5,7 +5,9 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import useRazorpay from "react-razorpay";
-
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import SideAndNavbar from './SideAndNavbar';
 const StyledBox = styled(Box)({
   padding: 10,
   border: "2px solid black",
@@ -92,6 +94,21 @@ function MakePayment() {
   
   return (
     <>
+         <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+    <SideAndNavbar/>
+      <Box
+          component="main"
+          sx={{
+            
+            flexGrow: 1,
+            height: "100vh",
+            overflow: "auto",
+          }}
+        >
+          <Container maxWidth="lg" sx={{ mt: 10, mb: 4 }}>
+            <Grid container spacing={3}>
+            <Grid item xs={12} md={8} lg={12}>  
       <StyledBox>
         <h1>Make Payment</h1>
         <hr />
@@ -154,6 +171,13 @@ function MakePayment() {
           </Grid>
         </Grid>
       </StyledBox>
+      </Grid>
+    
+    </Grid>
+    </Container>
+
+    </Box>
+</Box>
     </>
   );
 }

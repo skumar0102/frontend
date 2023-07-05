@@ -11,7 +11,7 @@ import MakePayment from './Components/Dashboard/MakePayment';
 import Cal from './Components/Dashboard/Cal';
 import Page404 from './Components/Page404/Page404';
 import ViewDetails from './Components/Dashboard/ViewDetails';
-// import Noti from './Components/Noti/Noti';
+import Noti from './Components/Noti/Noti';
 import Call from './Components/Call'
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
         <Route path='/call' element={<Call/>} />
         <Route path='*' element={<Page404/>} />
 
-        {/* <Route path='/noti' element={<Noti/>} /> */}
+        <Route path='/noti' element={<Noti/>} />
       </Routes>
     </div>
   );

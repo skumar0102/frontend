@@ -9,32 +9,62 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { Link } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 
+const Linkstyle = styled(Link)({
+  textDecoration:'none',
+  color:'black'
+})
 export const mainListItems = (
     <React.Fragment >
       <ListItemButton>
         <ListItemIcon>
           <GridViewIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        <Linkstyle to="/dashboard">
+        <ListItemText  primary="Dashboard"  />
+        </Linkstyle>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
           <ShoppingBagIcon />
         </ListItemIcon>
+        <Linkstyle to="/makeorder">
         <ListItemText primary="Make Order" />
+        </Linkstyle>
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <ShoppingBagIcon />
+        </ListItemIcon>
+        <Linkstyle to="/makepayment">
+        <ListItemText primary="Make Payment" />
+        </Linkstyle>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
           <RemoveRedEyeIcon />
         </ListItemIcon>
+        <Linkstyle to="/viewOrders">
         <ListItemText primary="View Orders" />
+        </Linkstyle>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
           <RemoveRedEyeIcon />
         </ListItemIcon>
+        <Linkstyle to="/viewpayments">
         <ListItemText primary="View Payments" />
+        </Linkstyle>
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <RemoveRedEyeIcon />
+        </ListItemIcon>
+        <Linkstyle to="/cal">
+        <ListItemText primary="View Pending Payments" />
+        </Linkstyle>
       </ListItemButton>
       {/* <ListItemButton>
         <ListItemIcon>

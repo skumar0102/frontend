@@ -27,6 +27,20 @@ async function Login(req,res){
     }
 }
 
+async function verify(req,res){
+    try {
+        let token = await req.headers.token;
+        let email = req.body.email;
+        let decodedInfo = jwt.verify(token,process.env.JWT_SECRET_KEY);
+           if(email != decodedInfo.email) return res.status(400).send("User not found");
+        
+        res.status(200).send("Your account has been verified");
+
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
 async function logout(req,res){
     try {
         console.log("Hello my logout page");
@@ -36,4 +50,4 @@ async function logout(req,res){
     }
 }
 
-export {Login,logout}
+export {Login,logout,verify}

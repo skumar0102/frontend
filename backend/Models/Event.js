@@ -2,10 +2,10 @@ import mongoose from 'mongoose';
 
 
 const EventSchema = new mongoose.Schema({
-    Title : {type:String},
-    Description : {type:String},
-    Startdate : {type:Date},
-    Enddate : {type:Date},
+    title : {type:String},
+    description : {type:String},
+    startdate : {type:Date},
+    enddate : {type:Date},
 },{timestamps:true})
 
 

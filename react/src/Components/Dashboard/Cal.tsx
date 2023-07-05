@@ -22,14 +22,19 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { tokens } from "../../theme.js";
 import { http } from "../../Config/axiosConfig.js";
+import CssBaseline from "@mui/material/CssBaseline";
+import SideAndNavbar from './SideAndNavbar';
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
 
 function Cal() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [currentEvents, setCurrentEvents] = useState<any[]>([]);
+  const [data, setData] = useState<any>([]);
+  console.log(data);
+  const [currentEvents, setCurrentEvents] = useState<any>([]);
   const [Orders, setOrders] = useState<any[]>([]);
   const [Selectitem, setSelectitem] = useState<any>({});
-  console.log(Selectitem);
   const {
     id,
     amount,
@@ -75,15 +80,22 @@ function Cal() {
     const title = prompt("Please enter a new title for your event");
     const calendarApi = selected.view.calendar;
     calendarApi.unselect();
-
+    console.log(calendarApi);
+    
+    // http.post("/event",{title:title,startdate:selected.startStr,enddate:selected.endStr})
+    // http.get("/events").then((res=>{setData(res.data.result);})),
+    
+    
     if (title) {
-      calendarApi.addEvent({
-        id: `${selected.dateStr}-${title}`,
-        title,
-        start: selected.startStr,
-        end: selected.endStr,
-        allDay: selected.allDay,
-      });
+      calendarApi.addEvent(
+        {
+          id: `${selected.dateStr}-${title}`,
+          title,
+          start: selected.startStr,
+          end: selected.endStr,
+          allDay: selected.allDay,
+        },
+      );
     }
   };
 
@@ -112,7 +124,22 @@ function Cal() {
   }, []);
 
   return (
-    <div>
+    <>
+      <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+    <SideAndNavbar/>
+      <Box
+          component="main"
+          sx={{
+            
+            flexGrow: 1,
+            height: "100vh",
+            overflow: "auto",
+          }}
+        >
+          <Container maxWidth="lg" sx={{ mt: 10, mb: 4 }}>
+            <Grid container spacing={3}>
+            <Grid item xs={12} md={8} lg={12}>
       <Box display="flex" justifyContent="space-between">
         {/* CALENDAR SIDEBAR */}
         <Box
@@ -192,19 +219,19 @@ function Cal() {
             dayMaxEvents={true}
             select={handleDateClick}
             eventClick={handleEventClick}
-            eventsSet={(events) => setCurrentEvents(events)}
-            initialEvents={[
-              {
-                id: "12315",
-                title: "All-day event",
-                date: "2022-09-14",
-              },
-              {
-                id: "5123",
-                title: "Timed event",
-                date: "2022-09-28",
-              },
-            ]}
+            eventAdd={(events) => setCurrentEvents(events)}
+            // initialEvents={[
+            //   {
+            //     id: "12315",
+            //     title: "All-day event",
+            //     date: "2022-09-14",
+            //   },
+            //   {
+            //     id: "5123",
+            //     title: "Timed event",
+            //     date: "2022-09-28",
+            //   },
+            // ]}
           />
           <Dialog
             open={openDilog}
@@ -236,7 +263,14 @@ function Cal() {
           </Dialog>
         </Box>
       </Box>
-    </div>
+      </Grid>
+    
+    </Grid>
+    </Container>
+
+    </Box>
+</Box>
+    </>
   );
 }
 

@@ -1,7 +1,10 @@
+import React from 'react';
 import { initializeApp } from "firebase/app";
-import { getMessaging,getToken } from "firebase/messaging";
+import { getMessaging, getToken } from "firebase/messaging";
 
 
+
+function Noti() {
   const firebaseConfig = {
     apiKey: "AIzaSyCoNjqndFZIAwk0VLJ5-MqGcIBi65XMbps",
     authDomain: "ids-infotech-payment.firebaseapp.com",
@@ -20,8 +23,7 @@ import { getMessaging,getToken } from "firebase/messaging";
         const app = initializeApp(firebaseConfig);
         const messaging = getMessaging(app);
         getToken(messaging, {
-          vapidKey:
-            "BA1ArSRkkaVB-OWgrGh5NR_duEGcDGbduzyk4QJS0pfv25LE_Z9qTThe3j-5iZMjJRMJAm61Qhi2i3uz6gd4r0I"
+          vapidKey:'BA1ArSRkkaVB-OWgrGh5NR_duEGcDGbduzyk4QJS0pfv25LE_Z9qTThe3j-5iZMjJRMJAm61Qhi2i3uz6gd4r0I'
         }).then((currentToken) => {
           console.log(currentToken)
           if (currentToken) {
@@ -37,3 +39,9 @@ import { getMessaging,getToken } from "firebase/messaging";
   }
 
   requestPermission();
+  return (
+    <div>Noti</div>
+  )
+}
+
+export default Noti
