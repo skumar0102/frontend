@@ -1,26 +1,13 @@
 import React, { useState,useEffect } from "react";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import useRazorpay from "react-razorpay";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import SideAndNavbar from './SideAndNavbar';
-const StyledBox = styled(Box)({
-  padding: 10,
-  border: "2px solid black",
-  borderRadius: "10px",
-  minHeight: "500px",
-  textAlign: "center",
-  // alignItems:'center'
-  // boxShadow:'2px 2px 10px 5px white'
-});
+import {StyledBox,StyledTextField} from './style';
 
-const StyledTextField = styled(TextField)({
-  width: "100%",
-});
 
 function MakePayment() {
   const [Name, setName] = useState("");

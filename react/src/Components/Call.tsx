@@ -7,7 +7,6 @@ function SupePage() {
     const onError = (error: any) => console.log('Execute Task After Facing Errors While Retrieval Of Data:', error?.message)
 
     const { isLoading, data, isError, error, isFetching, refetch } = useSupeData(onSuccess, onError);
-console.log(data);
     if (isLoading || isFetching) {
         return <h2>Loading...</h2>;
     }
